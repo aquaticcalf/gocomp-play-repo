@@ -1,0 +1,11 @@
+# Ignore files and directories
+.git
+.gitignore
+.vercel
+.vercelignore
+
+# Include necessary files
+!**/*.go
+!go.mod
+!go.sum
+!vercel.json
