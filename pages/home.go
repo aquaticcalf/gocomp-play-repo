@@ -27,11 +27,19 @@ func Home() Node {
 					P(Class("text-sm uppercase tracking-wide"), Text("server time")),
 					P(Class("text-xl font-mono mt-1 time"), Text(time.Now().Format("15:04:05"))),
 					Script(Raw(`
-						setInterval(function() {
-							const timeElement = document.querySelector(".time")
-							timeElement.textContent = new Date().toLocaleTimeString()
-						}, 1000)
-					`)),
+const timeEl = document.querySelector('.time')
+let [h, m, s] = timeEl.textContent.split(':').map(Number)
+let serverClock = new Date()
+serverClock.setHours(h, m, s, 0)
+
+setInterval(() => {
+	serverClock.setSeconds(serverClock.getSeconds() + 1)
+	const hh = String(serverClock.getHours()).padStart(2, '0')
+	const mm = String(serverClock.getMinutes()).padStart(2, '0')
+	const ss = String(serverClock.getSeconds()).padStart(2, '0')
+	timeEl.textContent = hh + ':' + mm + ':' + ss
+}, 1000)
+				  `)),
 				),
 			),
 		},
